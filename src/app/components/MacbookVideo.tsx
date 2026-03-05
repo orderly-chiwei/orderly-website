@@ -8,13 +8,17 @@ gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
 ScrollTrigger.normalizeScroll(false);
 
-const TOTAL_FRAMES = 122;
+const DESKTOP_FRAMES = 122;
+const MOBILE_FRAMES = 61;
 // Native resolution of extracted frames
 const FRAME_W = 1400;
 const FRAME_H = 843;
 
-function getFrameSrc(index: number): string {
-  return `/images/macbook-frames/${String(index).padStart(4, "0")}.webp`;
+const BATCH_SIZE = 10;
+
+function getFrameSrc(index: number, mobile: boolean): string {
+  const dir = mobile ? "macbook-frames-mobile" : "macbook-frames";
+  return `/images/${dir}/${String(index).padStart(4, "0")}.webp`;
 }
 
 interface MacbookVideoProps {
@@ -33,6 +37,8 @@ export default function MacbookVideo({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = canvasWidth < 500;
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -41,25 +47,25 @@ export default function MacbookVideo({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Set canvas resolution to match container design dimensions
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
+    const totalFrames = isMobile ? MOBILE_FRAMES : DESKTOP_FRAMES;
+    const frameW = isMobile ? 375 : FRAME_W;
+    const frameH = isMobile ? Math.round(375 * (FRAME_H / FRAME_W)) : FRAME_H;
+
     // Precompute "object-fit: cover" crop parameters
-    // Scale frame to cover the canvas, then center-crop
-    const scale = Math.max(canvasWidth / FRAME_W, canvasHeight / FRAME_H);
-    const scaledW = FRAME_W * scale;
-    const scaledH = FRAME_H * scale;
-    // Source crop region (in frame pixel coordinates)
+    const scale = Math.max(canvasWidth / frameW, canvasHeight / frameH);
+    const scaledW = frameW * scale;
+    const scaledH = frameH * scale;
     const sx = ((scaledW - canvasWidth) / 2) / scale;
     const sy = ((scaledH - canvasHeight) / 2) / scale;
     const sw = canvasWidth / scale;
     const sh = canvasHeight / scale;
 
-    // Preload all frames
-    const images: HTMLImageElement[] = [];
-    let loadedCount = 0;
+    const images: HTMLImageElement[] = new Array(totalFrames);
     let currentFrame = 0;
+    let cancelled = false;
 
     const drawFrame = (index: number) => {
       const img = images[index];
@@ -68,24 +74,41 @@ export default function MacbookVideo({
       ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvasWidth, canvasHeight);
     };
 
-    const onImageLoad = () => {
-      loadedCount++;
-      if (loadedCount === 1 && images[0]?.complete) {
-        drawFrame(0);
+    // Load a single image and return a promise
+    const loadImage = (frameIndex: number): Promise<void> => {
+      return new Promise((resolve) => {
+        if (cancelled) { resolve(); return; }
+        const img = new Image();
+        img.src = getFrameSrc(frameIndex + 1, isMobile);
+        img.onload = () => { images[frameIndex] = img; resolve(); };
+        img.onerror = () => resolve(); // skip failed frames
+      });
+    };
+
+    // Priority: load frame 0 first, draw immediately, then batch-load the rest
+    const loadAll = async () => {
+      // 1. Load first frame with high priority
+      await loadImage(0);
+      if (!cancelled) drawFrame(0);
+
+      // 2. Batch-load remaining frames
+      for (let start = 1; start < totalFrames; start += BATCH_SIZE) {
+        if (cancelled) break;
+        const end = Math.min(start + BATCH_SIZE, totalFrames);
+        const batch: Promise<void>[] = [];
+        for (let i = start; i < end; i++) {
+          batch.push(loadImage(i));
+        }
+        await Promise.all(batch);
       }
     };
 
-    for (let i = 0; i < TOTAL_FRAMES; i++) {
-      const img = new Image();
-      img.src = getFrameSrc(i + 1);
-      img.addEventListener("load", onImageLoad);
-      images.push(img);
-    }
+    loadAll();
 
     // GSAP ScrollTrigger to map scroll → frame index
     const obj = { frame: 0 };
     const tween = gsap.to(obj, {
-      frame: TOTAL_FRAMES - 1,
+      frame: totalFrames - 1,
       snap: "frame",
       ease: "none",
       scrollTrigger: {
@@ -106,13 +129,13 @@ export default function MacbookVideo({
     });
 
     return () => {
+      cancelled = true;
       tween.kill();
       ScrollTrigger.getAll().forEach((st) => {
         if (st.trigger === container) st.kill();
       });
-      images.forEach((img) => img.removeEventListener("load", onImageLoad));
     };
-  }, [canvasWidth, canvasHeight]);
+  }, [canvasWidth, canvasHeight, isMobile]);
 
   return (
     <div ref={containerRef} className={className}>
