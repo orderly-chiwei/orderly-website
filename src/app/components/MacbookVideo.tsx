@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -36,6 +36,7 @@ export default function MacbookVideo({
 }: MacbookVideoProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [canvasReady, setCanvasReady] = useState(false);
 
   const isMobile = canvasWidth < 500;
 
@@ -67,9 +68,27 @@ export default function MacbookVideo({
     let currentFrame = 0;
     let cancelled = false;
 
+    // Find the closest loaded frame to the target index
+    const findNearestLoaded = (index: number): number => {
+      // Check target first
+      if (images[index]?.complete && images[index]?.naturalWidth) return index;
+      // Search outward from target
+      for (let d = 1; d < totalFrames; d++) {
+        const before = index - d;
+        if (before >= 0 && images[before]?.complete && images[before]?.naturalWidth) return before;
+        const after = index + d;
+        if (after < totalFrames && images[after]?.complete && images[after]?.naturalWidth) return after;
+      }
+      return -1;
+    };
+
+    let lastDrawn = -1;
+
     const drawFrame = (index: number) => {
-      const img = images[index];
-      if (!img || !img.complete || !img.naturalWidth) return;
+      const actual = findNearestLoaded(index);
+      if (actual < 0 || actual === lastDrawn) return;
+      lastDrawn = actual;
+      const img = images[actual];
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       ctx.drawImage(img, sx, sy, sw, sh, 0, 0, canvasWidth, canvasHeight);
     };
@@ -89,7 +108,10 @@ export default function MacbookVideo({
     const loadAll = async () => {
       // 1. Load first frame with high priority
       await loadImage(0);
-      if (!cancelled) drawFrame(0);
+      if (!cancelled) {
+        drawFrame(0);
+        setCanvasReady(true);
+      }
 
       // 2. Batch-load remaining frames
       for (let start = 1; start < totalFrames; start += BATCH_SIZE) {
@@ -100,6 +122,11 @@ export default function MacbookVideo({
           batch.push(loadImage(i));
         }
         await Promise.all(batch);
+        // Redraw current position — may now have a closer frame available
+        if (!cancelled) {
+          lastDrawn = -1; // force redraw
+          drawFrame(currentFrame);
+        }
       }
     };
 
@@ -137,8 +164,25 @@ export default function MacbookVideo({
     };
   }, [canvasWidth, canvasHeight, isMobile]);
 
+  const firstFrameSrc = getFrameSrc(1, isMobile);
+
   return (
     <div ref={containerRef} className={className}>
+      {/* Static fallback image — visible instantly before canvas is ready */}
+      {!canvasReady && (
+        <img
+          src={firstFrameSrc}
+          alt=""
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            pointerEvents: "none",
+          }}
+        />
+      )}
       <canvas
         ref={canvasRef}
         style={{
