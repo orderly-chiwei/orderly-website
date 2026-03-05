@@ -5,6 +5,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
+ScrollTrigger.normalizeScroll(false);
 
 const TOTAL_FRAMES = 122;
 // Native resolution of extracted frames
@@ -91,6 +93,8 @@ export default function MacbookVideo({
         start: "top bottom",
         end: "center center",
         scrub: 0.5,
+        preventOverlaps: true,
+        fastScrollEnd: true,
       },
       onUpdate: () => {
         const frameIndex = Math.round(obj.frame);

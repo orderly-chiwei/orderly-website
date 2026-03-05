@@ -311,11 +311,12 @@ function AccordionItem({ item, vp }: { item: FAQItem; vp: Viewport }) {
 
       <div
         style={{
-          maxHeight: open ? "800px" : "0",
-          overflow: "hidden",
-          transition: "max-height 0.35s cubic-bezier(0.4,0,0.2,1)",
+          display: "grid",
+          gridTemplateRows: open ? "1fr" : "0fr",
+          transition: "grid-template-rows 0.35s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
+        <div style={{ overflow: "hidden" }}>
         <p
           style={{
             fontFamily: "'atyp-bl-variable','atyp-bl',sans-serif",
@@ -331,6 +332,7 @@ function AccordionItem({ item, vp }: { item: FAQItem; vp: Viewport }) {
         >
           {item.answer}
         </p>
+        </div>
       </div>
     </div>
   );

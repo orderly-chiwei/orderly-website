@@ -124,7 +124,6 @@ export default function Home() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
-        style={{ willChange: "opacity, transform" }}
       >
         <ScaledFrame designWidth={MOBILE_DESIGN_WIDTH} autoHeight>
           <MobileHomePage onMenuClick={handleOpenNav} />
