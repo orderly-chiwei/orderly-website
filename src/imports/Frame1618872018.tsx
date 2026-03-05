@@ -1,9 +1,12 @@
 'use client';
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
+import { useOrderlyStats, formatLargeNumber } from "@/app/hooks/useOrderlyStats";
+import { AnimatedNumber } from "@/app/components/AnimatedNumber";
+import { useNewsletterSubscribe } from "@/app/hooks/useNewsletterSubscribe";
 import Check from "@mui/icons-material/Check";
 import svgPaths from "./svg-kykn6znl0w";
 import ImportedWhyContent from "./WhyContent";
@@ -1876,14 +1879,14 @@ function NewsletterButtonContainer({ onClick, isSubmitted }: { onClick: () => vo
 
 function Group9() {
   const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const { status, subscribe, reset } = useNewsletterSubscribe();
+  const isSubmitted = status === "success";
 
   const handleSubmit = () => {
     if (email && email.includes("@")) {
-      // Here you would typically send the email to your newsletter service
-      console.log("Newsletter signup:", email);
-      setIsSubmitted(true);
-      setTimeout(() => setIsSubmitted(false), 3000);
+      subscribe(email).then(() => {
+        setTimeout(() => { reset(); setEmail(""); }, 3000);
+      });
     }
   };
 
@@ -2057,122 +2060,67 @@ function Frame16() {
   );
 }
 
-function Tvl() {
+function StatItem({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="content-stretch flex flex-col gap-[36.381px] items-center justify-center relative shrink-0 text-white" data-name="TVL">
+    <div className="content-stretch flex flex-col gap-[36.381px] items-center justify-center relative shrink-0 text-white">
       <p className="font-['Atyp_BL:Medium',sans-serif] leading-[1.3] not-italic relative shrink-0 text-[24px] text-center tracking-[-0.3125px]" style={{ fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        TVL
+        {label}
       </p>
       <div className="capitalize flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] justify-center leading-[0] relative shrink-0 text-[60px] whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        <p className="leading-none">$21.39M</p>
+        <p className="leading-none">{children}</p>
       </div>
     </div>
   );
 }
 
-function OpenInterest() {
+function StatsDivider() {
   return (
-    <div className="content-stretch flex flex-col h-[126.227px] items-center justify-center relative shrink-0 w-[330px]" data-name="Open interest">
-      <Tvl />
-    </div>
-  );
-}
-
-function TotalTradingVolume() {
-  return (
-    <div className="content-stretch flex flex-col gap-[36.381px] h-[119.493px] items-center justify-center relative shrink-0 text-white w-[330px]" data-name="Total trading volume">
-      <p className="font-['Atyp_BL:Medium',sans-serif] leading-[1.3] not-italic relative shrink-0 text-[24px] text-center tracking-[-0.3125px]" style={{ fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        24h trading volume
-      </p>
-      <div className="capitalize flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] justify-center leading-[0] relative shrink-0 text-[60px] whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        <p className="leading-none">$42.50M</p>
+    <div className="flex h-[160.093px] items-center justify-center relative shrink-0 w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
+      <div className="flex-none rotate-90">
+        <div className="h-0 relative w-[160.093px]">
+          <div className="absolute inset-[-2px_0_0_0]">
+            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 160.093 2">
+              <line stroke="#9C75FF" strokeWidth="2" x2="160.093" y1="1" y2="1" />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function TotalBuilders() {
-  return (
-    <div className="content-stretch flex flex-col gap-[36.381px] items-center justify-center relative shrink-0 text-white" data-name="Total builders">
-      <p className="font-['Atyp_BL:Medium',sans-serif] leading-[1.3] not-italic relative shrink-0 text-[24px] text-center tracking-[-0.3125px]" style={{ fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        Live builders
-      </p>
-      <div className="capitalize flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] justify-center leading-[0] relative shrink-0 text-[60px] whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        <p className="leading-none">261+</p>
-      </div>
-    </div>
-  );
-}
-
-function TotalTraders() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col h-[126.227px] items-center justify-center min-h-px min-w-px relative" data-name="Total traders">
-      <TotalBuilders />
-    </div>
-  );
-}
-
-function TotalBuilders1() {
-  return (
-    <div className="content-stretch flex flex-col gap-[36.381px] items-center justify-center relative shrink-0 text-white" data-name="Total builders">
-      <p className="font-['Atyp_BL:Medium',sans-serif] leading-[1.3] not-italic relative shrink-0 text-[24px] text-center tracking-[-0.3125px]" style={{ fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        Chains
-      </p>
-      <div className="capitalize flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] justify-center leading-[0] relative shrink-0 text-[60px] whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        <p className="leading-none">17+</p>
-      </div>
-    </div>
-  );
-}
-
-function TotalTraders1() {
-  return (
-    <div className="content-stretch flex flex-[1_0_0] flex-col h-[126.227px] items-center justify-center min-h-px min-w-px relative" data-name="Total traders">
-      <TotalBuilders1 />
-    </div>
-  );
-}
+const formatInteger = (v: number) => `${Math.round(v)}+`;
 
 function StatsContent() {
+  const stats = useOrderlyStats();
+  const formatTvl = useCallback((v: number) => formatLargeNumber(v), []);
+  const formatVolume = useCallback((v: number) => formatLargeNumber(v), []);
+
   return (
     <div className="content-stretch flex items-center justify-between px-[36px] relative shrink-0 w-[1302px]" data-name="Stats Content">
-      <OpenInterest />
-      <div className="flex h-[160.093px] items-center justify-center relative shrink-0 w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
-        <div className="flex-none rotate-90">
-          <div className="h-0 relative w-[160.093px]">
-            <div className="absolute inset-[-2px_0_0_0]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 160.093 2">
-                <line id="Line 7" stroke="#9C75FF" strokeWidth="2" x2="160.093" y1="1" y2="1" />
-              </svg>
-            </div>
-          </div>
-        </div>
+      <div className="content-stretch flex flex-col h-[126.227px] items-center justify-center relative shrink-0 w-[330px]" data-name="Open interest">
+        <StatItem label="TVL">
+          <AnimatedNumber value={stats.tvl} format={formatTvl} />
+        </StatItem>
       </div>
-      <TotalTradingVolume />
-      <div className="flex h-[160.093px] items-center justify-center relative shrink-0 w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
-        <div className="flex-none rotate-90">
-          <div className="h-0 relative w-[160.093px]">
-            <div className="absolute inset-[-2px_0_0_0]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 160.093 2">
-                <line id="Line 8" stroke="#9C75FF" strokeWidth="2" x2="160.093" y1="1" y2="1" />
-              </svg>
-            </div>
-          </div>
-        </div>
+      <StatsDivider />
+      <div className="content-stretch flex flex-col gap-[36.381px] h-[119.493px] items-center justify-center relative shrink-0 text-white w-[330px]" data-name="Total trading volume">
+        <StatItem label="24h trading volume">
+          <AnimatedNumber value={stats.tradingVolume} format={formatVolume} />
+        </StatItem>
       </div>
-      <TotalTraders />
-      <div className="flex h-[160.093px] items-center justify-center relative shrink-0 w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
-        <div className="flex-none rotate-90">
-          <div className="h-0 relative w-[160.093px]">
-            <div className="absolute inset-[-2px_0_0_0]">
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 160.093 2">
-                <line id="Line 8" stroke="#9C75FF" strokeWidth="2" x2="160.093" y1="1" y2="1" />
-              </svg>
-            </div>
-          </div>
-        </div>
+      <StatsDivider />
+      <div className="content-stretch flex flex-[1_0_0] flex-col h-[126.227px] items-center justify-center min-h-px min-w-px relative" data-name="Total traders">
+        <StatItem label="Live builders">
+          <AnimatedNumber value={stats.liveBuilders} format={formatInteger} />
+        </StatItem>
       </div>
-      <TotalTraders1 />
+      <StatsDivider />
+      <div className="content-stretch flex flex-[1_0_0] flex-col h-[126.227px] items-center justify-center min-h-px min-w-px relative" data-name="Total traders">
+        <StatItem label="Chains">
+          <AnimatedNumber value={stats.chains} format={formatInteger} />
+        </StatItem>
+      </div>
     </div>
   );
 }

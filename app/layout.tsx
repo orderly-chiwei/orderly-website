@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import "@/styles/index.css";
 
 export const metadata: Metadata = {
-  title: "Orderly Network",
+  title: "Orderly | Own The Exchange",
   description: "Omnichain orderbook infrastructure for DeFi",
+  icons: {
+    icon: "/images/favicon.svg",
+  },
 };
 
 export default function RootLayout({

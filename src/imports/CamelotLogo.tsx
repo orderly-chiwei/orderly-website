@@ -1,5 +1,5 @@
 import svgPaths from "./svg-zguoq44uln";
-const imgImage3 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQABNjN9GQAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAA0lEQVQI12P4z8BQDwAEgAF/pooBPQAAAABJRU5ErkJggg==";
+const imgImage3 = "/images/svg/CamelotLogo.svg";
 
 export default function CamelotLogo({ className }: { className?: string }) {
   return (

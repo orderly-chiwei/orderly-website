@@ -1,4 +1,4 @@
-const imgFrame16188720501 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQABNjN9GQAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAA0lEQVQI12P4z8BQDwAEgAF/pooBPQAAAABJRU5ErkJggg==";
+const imgFrame16188720501 = "/images/ship-fast.avif";
 
 function Frame() {
   return (
