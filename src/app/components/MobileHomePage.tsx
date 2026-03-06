@@ -479,13 +479,22 @@ export function MobileHomePage({ onMenuClick }: { onMenuClick?: () => void } = {
     });
 
     // ── sync carousel index state from native scroll so dots/arrows stay in sync ──
+    // Use rAF to throttle updates and avoid triggering re-renders on every scroll event.
+    let whyRaf = 0;
+    let buildRaf = 0;
     const onWhyScroll = () => {
-      if (!whyCont) return;
-      setWhyIdx(Math.round(whyCont.scrollLeft / WHY_CARD_STEP));
+      cancelAnimationFrame(whyRaf);
+      whyRaf = requestAnimationFrame(() => {
+        if (!whyCont) return;
+        setWhyIdx(Math.round(whyCont.scrollLeft / WHY_CARD_STEP));
+      });
     };
     const onBuildScroll = () => {
-      if (!buildCont) return;
-      setBuildIdx(Math.round(buildCont.scrollLeft / BUILD_CARD_STEP));
+      cancelAnimationFrame(buildRaf);
+      buildRaf = requestAnimationFrame(() => {
+        if (!buildCont) return;
+        setBuildIdx(Math.round(buildCont.scrollLeft / BUILD_CARD_STEP));
+      });
     };
     whyCont?.addEventListener("scroll", onWhyScroll, { passive: true });
     buildCont?.addEventListener("scroll", onBuildScroll, { passive: true });
@@ -516,6 +525,8 @@ export function MobileHomePage({ onMenuClick }: { onMenuClick?: () => void } = {
     }
 
     return () => {
+      cancelAnimationFrame(whyRaf);
+      cancelAnimationFrame(buildRaf);
       whyCont?.removeEventListener("scroll", onWhyScroll);
       buildCont?.removeEventListener("scroll", onBuildScroll);
     };
@@ -567,8 +578,6 @@ export function MobileHomePage({ onMenuClick }: { onMenuClick?: () => void } = {
       const w = wrap as any;
       w.__buildEls?.forEach((el: Element) => el.removeEventListener("click", w.__onBuild));
       w.__partnerEls?.forEach((el: Element) => el.removeEventListener("click", w.__onPartner));
-      const whyCont = wrap.querySelector('[data-name="Why Content List"]') as HTMLElement | null;
-      const buildCont = wrap.querySelector('[data-name="Build Content List"]') as HTMLElement | null;
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

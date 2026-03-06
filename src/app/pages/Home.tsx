@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Frame7 from "../../imports/Frame1618872018";
 import { MobileHomePage, MobileNavDrawer } from "../components/MobileHomePage";
@@ -47,11 +47,24 @@ function ScaledFrame({
     return () => ro.disconnect();
   }, [updateScale]);
 
-  useLayoutEffect(() => {
+  // Measure inner height with ResizeObserver instead of useLayoutEffect
+  // to avoid synchronous layout reflows on every re-render.
+  useEffect(() => {
     if (!autoHeight || !innerRef.current) return;
-    const h = innerRef.current.scrollHeight;
-    if (h > 100) setMeasuredDH(h);
-  }, [autoHeight, scale]);
+    const el = innerRef.current;
+    let lastH = 0;
+    const measure = () => {
+      const h = el.scrollHeight;
+      if (h > 100 && Math.abs(h - lastH) > 2) {
+        lastH = h;
+        setMeasuredDH(h);
+      }
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [autoHeight]);
 
   const effectiveDH = autoHeight && measuredDH ? measuredDH : dh;
   const scaledHeight = effectiveDH * scale;
@@ -77,6 +90,7 @@ function ScaledFrame({
           flexShrink: 0,
           transformOrigin: "top left",
           transform: `scale(${scale})`,
+          willChange: "transform",
         }}
       >
         {children}

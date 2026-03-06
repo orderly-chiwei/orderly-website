@@ -1243,7 +1243,8 @@ function formatUsd(usd: number): string {
 }
 
 function FooterStatus({ onBuyOrder }: { onBuyOrder?: () => void }) {
-  const [price, setPrice] = useState<string | null>(() => getCachedPrice());
+  // Initialize as null to avoid hydration mismatch (localStorage is unavailable on server)
+  const [price, setPrice] = useState<string | null>(null);
 
   useEffect(() => {
     const cached = getCachedPrice();
