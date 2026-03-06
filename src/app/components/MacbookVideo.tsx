@@ -1,41 +1,30 @@
-import { useState } from "react";
-
 interface MacbookVideoProps {
   className?: string;
   canvasWidth?: number;
   canvasHeight?: number;
 }
 
-const coverStyle: React.CSSProperties = {
-  position: "absolute",
-  inset: 0,
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",
-  pointerEvents: "none",
-};
-
 export default function MacbookVideo({
   className,
   canvasWidth = 1125,
 }: MacbookVideoProps) {
   const isMobile = canvasWidth < 500;
-  const [playing, setPlaying] = useState(false);
 
   return (
     <div className={className}>
-      <img
-        src={isMobile ? "/images/macbook-mobile-poster.webp" : "/images/macbook-poster.webp"}
-        alt=""
-        style={{ ...coverStyle, opacity: playing ? 0 : 1, transition: "opacity 0.3s" }}
-      />
       <video
         autoPlay
         muted
         playsInline
         loop={false}
-        onPlaying={() => setPlaying(true)}
-        style={{ ...coverStyle, opacity: playing ? 1 : 0 }}
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          pointerEvents: "none",
+        }}
       >
         {isMobile ? (
           <>

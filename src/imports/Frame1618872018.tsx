@@ -19,14 +19,14 @@ import IcSocialYoutubeS from "./IcSocialYoutubeS24";
 import LogoContainerLogX from "./LogoContainer";
 
 // ─── SVG asset imports ────────────────────────────────────────────────────────
-const ethBadgeSrc    = "/images/svg/EthBadge.svg";
-const arbBadgeSrc    = "/images/svg/ArbBadge.svg";
-const solBadgeSrc    = "/images/svg/SolBadge.svg";
+const ethBadgeSrc = "/images/svg/EthBadge.svg";
+const arbBadgeSrc = "/images/svg/ArbBadge.svg";
+const solBadgeSrc = "/images/svg/SolBadge.svg";
 import UniswapLogo from "./UniswapLogo";
 const pancakeLogoSrc = "/images/svg/PancakeLogo.svg";
 import CamelotLogo from "./CamelotLogo";
 const raydiumLogoSrc = "/images/svg/RaydiumLogo.svg";
-const woofiLogoSrc   = "/images/svg/WOOFiLogo.svg";
+const woofiLogoSrc = "/images/svg/WOOFiLogo.svg";
 
 // ─── Partnership Contact Modal ────────────────────────────────���───────────────
 export function PartnershipModal({ onClose }: { onClose: () => void }) {
@@ -41,6 +41,13 @@ export function PartnershipModal({ onClose }: { onClose: () => void }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const subject = encodeURIComponent("Partnership Inquiry from Orderly Website");
+    const bodyText = `Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nCompany/Project: ${formData.company}\n\nMessage:\n${formData.message}`;
+    const body = encodeURIComponent(bodyText);
+
+    window.location.href = `mailto:midoji@orderly.network?subject=${subject}&body=${body}`;
+
     setSubmitted(true);
   };
 
@@ -208,7 +215,7 @@ export function PartnershipModal({ onClose }: { onClose: () => void }) {
 }
 // ─── Buy ORDER Modal ──────────────────────────────────────────────────────────
 const fontRegularBuy = { fontFamily: "'Atyp BL', 'Atyp_BL:Regular', sans-serif" };
-const fontMediumBuy  = { fontFamily: "'Atyp BL', 'Atyp_BL:Medium', sans-serif" };
+const fontMediumBuy = { fontFamily: "'Atyp BL', 'Atyp_BL:Medium', sans-serif" };
 
 // ── Chain network badges ────────────────────────────────────────────────────
 function EthBadge() {
@@ -246,17 +253,17 @@ function WoofLogo() {
 function ExternalArrow() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path d="M3 13L13 3M7 3h6v6" stroke="#9c75ff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M3 13L13 3M7 3h6v6" stroke="#9c75ff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 const BUY_EXCHANGES = [
-  { name: "Uniswap",     logo: <UniswapLogo />,     badge: <EthBadge />, url: "https://app.uniswap.org/swap?outputCurrency=ORDER" },
+  { name: "Uniswap", logo: <UniswapLogo />, badge: <EthBadge />, url: "https://app.uniswap.org/swap?outputCurrency=ORDER" },
   { name: "PancakeSwap", logo: <PancakeSwapLogo />, badge: <EthBadge />, url: "https://pancakeswap.finance/swap?outputCurrency=ORDER" },
-  { name: "Camelot",     logo: <CamelotLogo className="relative size-[44px] shrink-0 rounded-full overflow-hidden" />,     badge: <ArbBadge />, url: "https://app.camelot.exchange/" },
-  { name: "Raydium",     logo: <RadyiumLogo />,     badge: <SolBadge />, url: "https://raydium.io/swap/" },
-  { name: "WOOFi",       logo: <WoofLogo />,        badge: null, url: "https://fi.woo.org/" },
+  { name: "Camelot", logo: <CamelotLogo className="relative size-[44px] shrink-0 rounded-full overflow-hidden" />, badge: <ArbBadge />, url: "https://app.camelot.exchange/" },
+  { name: "Raydium", logo: <RadyiumLogo />, badge: <SolBadge />, url: "https://raydium.io/swap/" },
+  { name: "WOOFi", logo: <WoofLogo />, badge: null, url: "https://fi.woo.org/" },
 ];
 
 export function BuyOrderModal({ onClose }: { onClose: () => void }) {
@@ -495,10 +502,10 @@ function MenuCell() {
           onEnter={handleEnter}
           onLeave={handleLeave}
           items={[
-            { label: "Orderly One",   href: "https://dex.orderly.network/" },
-            { label: "My DEX",        href: "https://dex.orderly.network/dex" },
+            { label: "Orderly One", href: "https://dex.orderly.network/" },
+            { label: "My DEX", href: "https://dex.orderly.network/dex" },
             { label: "Documentation", href: "https://orderly.network/docs/introduction/getting-started/what-is-orderly" },
-            { label: "GitHub",        href: "https://github.com/OrderlyNetwork" },
+            { label: "GitHub", href: "https://github.com/OrderlyNetwork" },
           ]}
         />
       )}
@@ -526,14 +533,14 @@ function MenuCell1() {
           onEnter={handleEnter}
           onLeave={handleLeave}
           items={[
-            { label: "Partners",     href: "https://orderly.network/partners/" },
-            { label: "Listings",     href: "https://orderly.network/listing/" },
+            { label: "Partners", href: "https://orderly.network/partners/" },
+            { label: "Listings", href: "https://orderly.network/listing/" },
             { label: "Case Studies", href: "https://dex.orderly.network/case-studies" },
-            { label: "Governance",   href: "https://snapshot.box/#/s:orderlygov.eth" },
-            { label: "Staking",      href: "https://app.orderly.network/staking" },
-            { label: "Blog",         href: "https://orderly.network/blog/" },
-            { label: "Team",         href: "https://orderly.network/team/" },
-            { label: "FAQ",          href: "/faq" },
+            { label: "Governance", href: "https://snapshot.box/#/s:orderlygov.eth" },
+            { label: "Staking", href: "https://app.orderly.network/staking" },
+            { label: "Blog", href: "https://orderly.network/blog/" },
+            { label: "Team", href: "https://orderly.network/team/" },
+            { label: "FAQ", href: "/faq" },
           ]}
         />
       )}
@@ -561,12 +568,12 @@ function MenuCell2() {
           onEnter={handleEnter}
           onLeave={handleLeave}
           items={[
-            { label: "Live DEXs",  href: "https://dex.orderly.network/board/" },
-            { label: "Dashboard",  href: "https://orderly-dashboard.orderly.network/" },
-            { label: "Explorer",   href: "https://explorer.orderly.network/" },
-            { label: "Campaigns",  href: "https://app.orderly.network/campaigns" },
-            { label: "Vaults",     href: "http://app.orderly.network/vaults" },
-            { label: "API",        href: "https://orderly.network/docs/build-on-omnichain/evm-api/introduction" },
+            { label: "Live DEXs", href: "https://dex.orderly.network/board/" },
+            { label: "Dashboard", href: "https://orderly-dashboard.orderly.network/" },
+            { label: "Explorer", href: "https://explorer.orderly.network/" },
+            { label: "Campaigns", href: "https://app.orderly.network/campaigns" },
+            { label: "Vaults", href: "http://app.orderly.network/vaults" },
+            { label: "API", href: "https://orderly.network/docs/build-on-omnichain/evm-api/introduction" },
           ]}
         />
       )}
@@ -665,16 +672,16 @@ function HeroButtonsContainer({ onOpenModal }: { onOpenModal: () => void }) {
           Start Building
         </p>
       </a>
-      <button
-        onClick={onOpenModal}
-        className="content-stretch flex h-[52px] items-center justify-center pl-[24px] pr-[20px] py-[12px] relative rounded-[24px] shrink-0 hover:bg-white/10 transition-colors bg-transparent border-0 cursor-pointer"
+      <a
+        href={`mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nCompany / Project:\nMessage:\n")}`}
+        className="content-stretch flex h-[52px] items-center justify-center pl-[24px] pr-[20px] py-[12px] relative rounded-[24px] shrink-0 hover:bg-white/10 transition-colors bg-transparent border-0 cursor-pointer no-underline"
         data-name="Trade on Orderly"
       >
         <div aria-hidden="true" className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[24px]" />
         <p className="font-['Atyp_BL:Bold',sans-serif] leading-none not-italic relative shrink-0 text-[16px] text-white tracking-[0.16px]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06', 'liga' 0" }}>
           Talk to Partnerships
         </p>
-      </button>
+      </a>
     </div>
   );
 }
@@ -1312,16 +1319,16 @@ function Frame4() {
 
 function Frame5({ onOpenModal }: { onOpenModal: () => void }) {
   return (
-    <button
-      onClick={onOpenModal}
-      className="content-stretch flex h-[52px] items-center justify-center pl-[24px] pr-[20px] py-[12px] relative rounded-[24px] shrink-0 hover:bg-white/10 transition-colors bg-transparent border-0 cursor-pointer"
+    <a
+      href={`mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nCompany / Project:\nMessage:\n")}`}
+      className="content-stretch flex h-[52px] items-center justify-center pl-[24px] pr-[20px] py-[12px] relative rounded-[24px] shrink-0 hover:bg-white/10 transition-colors bg-transparent border-0 cursor-pointer no-underline"
       data-name="Trade on Orderly"
     >
       <div aria-hidden="true" className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[24px]" />
       <p className="font-['Atyp_BL:Bold',sans-serif] leading-none not-italic relative shrink-0 text-[16px] text-white tracking-[0.16px]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06', 'liga' 0" }}>
         Talk to Partnerships
       </p>
-    </button>
+    </a>
   );
 }
 
@@ -1413,10 +1420,10 @@ function FooterStatus({ onBuyOrder }: { onBuyOrder?: () => void }) {
         if (usd !== undefined) {
           setPrice(
             "$" +
-              usd.toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 3,
-              })
+            usd.toLocaleString("en-US", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 3,
+            })
           );
         }
       } catch {
@@ -2254,7 +2261,7 @@ function WhyTitleContainer() {
 function ArrowLeftCircle({ isEnabled = true }: { isEnabled?: boolean }) {
   const fillColor = isEnabled ? "#3F0086" : "#1E2026";
   const strokeColor = isEnabled ? "white" : "#2B2F36";
-  
+
   return (
     <div className="relative size-[44px]" data-name="Arrow left-circle">
       <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
@@ -2274,7 +2281,7 @@ function ArrowLeftCircle({ isEnabled = true }: { isEnabled?: boolean }) {
 function ArrowLeftCircle1({ isEnabled = false }: { isEnabled?: boolean }) {
   const fillColor = isEnabled ? "#3F0086" : "#1E2026";
   const strokeColor = isEnabled ? "white" : "#2B2F36";
-  
+
   return (
     <div className="size-[44px]" data-name="Arrow left-circle">
       <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
@@ -2950,7 +2957,7 @@ function BuildTitleContainer() {
 function ArrowLeftCircle2({ isEnabled = true }: { isEnabled?: boolean }) {
   const fillColor = isEnabled ? "#3F0086" : "#1E2026";
   const strokeColor = isEnabled ? "white" : "#2B2F36";
-  
+
   return (
     <div className="relative size-[44px]" data-name="Arrow left-circle">
       <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
@@ -2970,7 +2977,7 @@ function ArrowLeftCircle2({ isEnabled = true }: { isEnabled?: boolean }) {
 function ArrowLeftCircle3({ isEnabled = false }: { isEnabled?: boolean }) {
   const fillColor = isEnabled ? "#3F0086" : "#1E2026";
   const strokeColor = isEnabled ? "white" : "#2B2F36";
-  
+
   return (
     <div className="size-[44px]" data-name="Arrow left-circle">
       <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
@@ -3160,18 +3167,18 @@ function HeroSection() {
 
 export default function Frame7() {
   const [modalOpen, setModalOpen] = useState(false);
-  
+
   // Animation configuration for sequential section reveals
   const sectionVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0 },
   };
-  
+
   const transition = {
     duration: 0.7,
     ease: [0.22, 0.61, 0.36, 1] as const,
   };
-  
+
   return (
     <div className="bg-black relative size-full">
       {/* Background decorative elements - no animation */}
@@ -3209,16 +3216,16 @@ export default function Frame7() {
         </svg>
       </div>
       <MacbookVideo className="-translate-x-1/2 absolute h-[837.698px] left-[calc(50%-0.1px)] top-[611.56px] w-[1125.404px]" />
-      
+
       {/* Nav - appears immediately on load */}
       <motion.div initial="hidden" animate="visible" variants={sectionVariants} transition={transition}>
         <Default />
       </motion.div>
-      
+
       <motion.div initial="hidden" animate="visible" variants={sectionVariants} transition={transition}>
         <Frame onOpenModal={() => setModalOpen(true)} />
       </motion.div>
-      
+
       {/* Hero Section */}
       <motion.div
         initial="hidden"
@@ -3228,7 +3235,7 @@ export default function Frame7() {
       >
         <HeroSection />
       </motion.div>
-      
+
       {/* Feature Tags */}
       <motion.div
         initial="hidden"
@@ -3240,7 +3247,7 @@ export default function Frame7() {
         <FeatureTag1 />
         <FeatureTag2 />
       </motion.div>
-      
+
       {/* Stats Section */}
       <motion.div
         initial="hidden"
@@ -3250,7 +3257,7 @@ export default function Frame7() {
       >
         <StatsSection />
       </motion.div>
-      
+
       {/* Build Section */}
       <motion.div
         initial="hidden"
@@ -3260,7 +3267,7 @@ export default function Frame7() {
       >
         <BuildSection />
       </motion.div>
-      
+
       {/* Why Section */}
       <motion.div
         initial="hidden"
@@ -3270,7 +3277,7 @@ export default function Frame7() {
       >
         <WhySection />
       </motion.div>
-      
+
       {/* Quick Start Section */}
       <motion.div
         initial="hidden"
@@ -3280,7 +3287,7 @@ export default function Frame7() {
       >
         <QuickStartSection />
       </motion.div>
-      
+
       {/* Trusted Section */}
       <motion.div
         initial="hidden"
@@ -3290,7 +3297,7 @@ export default function Frame7() {
       >
         <TrustedSection />
       </motion.div>
-      
+
       {/* Frame components */}
       <motion.div
         initial="hidden"
@@ -3303,7 +3310,7 @@ export default function Frame7() {
         <Frame13 />
         <Frame16 />
       </motion.div>
-      
+
       {/* Footer Section */}
       <motion.div
         initial="hidden"
@@ -3318,8 +3325,7 @@ export default function Frame7() {
           © 2026 Orderly Network
         </p>
       </motion.div>
-      
-      {modalOpen && <PartnershipModal onClose={() => setModalOpen(false)} />}
+
     </div>
   );
 }
