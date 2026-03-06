@@ -14,7 +14,7 @@ export default function MacbookVideo({
     return (
       <div className={className}>
         <img
-          src="/images/macbook-static-mobile.png"
+          src="/images/macbook-static-mobile.webp"
           alt=""
           style={{
             position: "absolute",
