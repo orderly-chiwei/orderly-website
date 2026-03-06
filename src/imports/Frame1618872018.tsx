@@ -470,7 +470,7 @@ function HeroTextContainer() {
         <p>OWN PERP DEX</p>
       </div>
       <div className="font-['Atyp_BL:Medium',sans-serif] leading-[1.3] not-italic relative shrink-0 text-[24px]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
-        <p className="mb-0">{`Launch a perpetuals DEX on any chain — `}</p>
+        <p className="mb-0">{`Launch a perpetuals DEX on any chain — for humans and agents`}</p>
         <p>with shared liquidity, zero infra cost, and fees that go to you.</p>
       </div>
     </div>

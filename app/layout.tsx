@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/index.css";
+import GoogleAnalytics from "@/app/components/GoogleAnalytics";
 
 const SITE_URL = "https://orderly.network";
 
@@ -109,6 +110,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-black">
+        <GoogleAnalytics />
         <div style={{ width: "100vw", overflowX: "hidden" }}>
           {children}
         </div>
