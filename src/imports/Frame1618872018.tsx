@@ -7,7 +7,12 @@ import { motion } from "motion/react";
 import { useOrderlyStats, formatLargeNumber } from "@/app/hooks/useOrderlyStats";
 import { AnimatedNumber } from "@/app/components/AnimatedNumber";
 import { useNewsletterSubscribe } from "@/app/hooks/useNewsletterSubscribe";
-import Check from "@mui/icons-material/Check";
+// Lightweight inline check icon (replaces heavy MUI Check)
+const CheckSvg = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+    <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 import svgPaths from "./svg-kykn6znl0w";
 import ImportedWhyContent from "./WhyContent";
 const imgMacBook11 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQABNjN9GQAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAA0lEQVQI12P4z8BQDwAEgAF/pooBPQAAAABJRU5ErkJggg==";
@@ -1716,7 +1721,7 @@ function NewsletterButtonContainer({ onClick, isSubmitted }: { onClick: () => vo
       data-name="Newsletter Button Container"
     >
       <p className="font-['Atyp_BL:Bold',sans-serif] leading-none not-italic relative shrink-0 text-[20px] text-white tracking-[0.2px] flex items-center justify-center" style={{ fontFeatureSettings: "'liga' 0" }}>
-        {isSubmitted ? <Check sx={{ fontSize: 20 }} /> : "Sign Up"}
+        {isSubmitted ? <CheckSvg /> : "Sign Up"}
       </p>
     </button>
   );
@@ -1882,7 +1887,7 @@ function Group11() {
         </div>
       </button>
       <p className="col-1 font-['Atyp_BL:Bold',sans-serif] leading-none ml-[427.79px] mt-[24.5px] not-italic relative row-1 text-[20px] text-white tracking-[0.2px] pointer-events-none flex items-center justify-center w-[142px]" style={{ fontFeatureSettings: "'liga' 0" }}>
-        {copied ? <Check sx={{ fontSize: 20 }} /> : "Copy"}
+        {copied ? <CheckSvg /> : "Copy"}
       </p>
     </div>
   );

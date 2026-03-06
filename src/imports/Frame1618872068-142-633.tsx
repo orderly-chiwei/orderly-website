@@ -2,7 +2,12 @@
 
 import { useState, useEffect, useRef, memo, useCallback } from "react";
 import MacbookVideo from "@/app/components/MacbookVideo";
-import CheckIcon from "@mui/icons-material/Check";
+// Lightweight inline check icon (replaces heavy MUI CheckIcon)
+const CheckSvg = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+    <path d="M5 13l4 4L19 7" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 import { AnimatedNumber } from "@/app/components/AnimatedNumber";
 import { useOrderlyStats, formatLargeNumber } from "@/app/hooks/useOrderlyStats";
 import svgPaths from "./svg-4hybjba00c";
@@ -1970,9 +1975,9 @@ function Frame12() {
         style={{ padding: 0 }}
       >
         <div className="flex flex-row items-center justify-center w-full">
-          <div className="content-stretch flex items-center justify-center px-[20px] py-[12px] relative w-full">
+          <div className="content-stretch flex items-center justify-center px-[20px] relative w-full" style={{ height: 44 }}>
             {copied ? (
-              <CheckIcon style={{ fontSize: 20, color: "white" }} />
+              <CheckSvg />
             ) : (
               <p className="font-['Atyp_BL:Bold',sans-serif] leading-none not-italic relative shrink-0 text-[16px] text-white tracking-[0.16px] whitespace-nowrap" style={{ fontFeatureSettings: "'liga' 0" }}>
                 Copy
@@ -2058,9 +2063,9 @@ function Frame13() {
         style={{ padding: 0 }}
       >
         <div className="flex flex-row items-center justify-center w-full">
-          <div className="content-stretch flex items-center justify-center px-[20px] py-[12px] relative w-full">
+          <div className="content-stretch flex items-center justify-center px-[20px] relative w-full" style={{ height: 44 }}>
             {isSubmitted ? (
-              <CheckIcon style={{ fontSize: 20, color: "white" }} />
+              <CheckSvg />
             ) : (
               <p className="font-['Atyp_BL:Bold',sans-serif] leading-none not-italic relative shrink-0 text-[16px] text-white tracking-[0.16px] whitespace-nowrap" style={{ fontFeatureSettings: "'liga' 0" }}>
                 Sign Up

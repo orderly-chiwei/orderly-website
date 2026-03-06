@@ -90,7 +90,6 @@ function ScaledFrame({
           flexShrink: 0,
           transformOrigin: "top left",
           transform: `scale(${scale})`,
-          willChange: "transform",
         }}
       >
         {children}
@@ -121,10 +120,12 @@ export default function Home() {
   // Desktop & tablet: pixel-perfect ScaledFrame of the 1440 px Figma canvas
   if (viewport === "desktop" || viewport === "tablet") {
     return (
-      <div style={{ width: "100vw", overflowX: "hidden", background: "#000" }}>
-        <ScaledFrame cap>
-          <Frame7 />
-        </ScaledFrame>
+      <div style={{ width: "100vw", overflowX: "hidden", background: "#000", display: "flex", justifyContent: "center" }}>
+        <div style={{ width: "100%", maxWidth: "1200px" }}>
+          <ScaledFrame cap>
+            <Frame7 />
+          </ScaledFrame>
+        </div>
       </div>
     );
   }

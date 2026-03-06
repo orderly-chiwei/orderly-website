@@ -472,7 +472,6 @@ export function MobileHomePage({ onMenuClick }: { onMenuClick?: () => void } = {
       // Use "proximity" instead of "mandatory" so the browser doesn't lock the
       // scroll axis during horizontal swipes, which would block vertical scrolling.
       (el.style as any).scrollSnapType = "x proximity";
-      (el.style as any).webkitOverflowScrolling = "touch";
       // snap each direct child card to the start
       Array.from(el.children).forEach((child) => {
         (child as HTMLElement).style.scrollSnapAlign = "start";
@@ -742,7 +741,6 @@ export function MobileHomePage({ onMenuClick }: { onMenuClick?: () => void } = {
       style={{
         position: "relative",
         cursor: "default",
-        touchAction: "manipulation",
         WebkitTapHighlightColor: "transparent",
       }}
     >
