@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import Frame7 from "../../imports/Frame1618872018";
 import { MobileHomePage, MobileNavDrawer } from "../components/MobileHomePage";
 
@@ -133,18 +133,12 @@ export default function Home() {
   // MobileNavDrawer is rendered OUTSIDE the motion.div so position:fixed
   // is always relative to the true viewport (no stacking-context interference).
   return (
-    <div style={{ width: "100vw", overflowX: "hidden", background: "#000" }}>
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
-      >
-        <ScaledFrame designWidth={MOBILE_DESIGN_WIDTH} autoHeight>
-          <MobileHomePage onMenuClick={handleOpenNav} />
-        </ScaledFrame>
-      </motion.div>
+    <div style={{ width: "100vw", overflowX: "hidden", overscrollBehavior: "none", background: "#000" }}>
+      <ScaledFrame designWidth={MOBILE_DESIGN_WIDTH} autoHeight>
+        <MobileHomePage onMenuClick={handleOpenNav} />
+      </ScaledFrame>
 
-      {/* Nav drawer lives here, outside every transform/willChange ancestor */}
+      {/* Nav drawer lives outside ScaledFrame so position:fixed works correctly */}
       <AnimatePresence>
         {navOpen && (
           <MobileNavDrawer key="mobile-nav" onClose={handleCloseNav} />

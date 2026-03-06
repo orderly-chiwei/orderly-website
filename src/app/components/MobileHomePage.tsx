@@ -469,9 +469,10 @@ export function MobileHomePage({ onMenuClick }: { onMenuClick?: () => void } = {
       (el.style as any).scrollbarWidth = "none";
       (el.style as any).msOverflowStyle = "none";
       // ── smooth native swipe with scroll-snap ──
-      (el.style as any).scrollSnapType = "x mandatory";
+      // Use "proximity" instead of "mandatory" so the browser doesn't lock the
+      // scroll axis during horizontal swipes, which would block vertical scrolling.
+      (el.style as any).scrollSnapType = "x proximity";
       (el.style as any).webkitOverflowScrolling = "touch";
-      el.style.overscrollBehaviorX = "contain";
       // snap each direct child card to the start
       Array.from(el.children).forEach((child) => {
         (child as HTMLElement).style.scrollSnapAlign = "start";
