@@ -1017,14 +1017,13 @@ function QuickStartTitleContainer() {
   );
 }
 
-function MobileAIAgentCard() {
+function MobileCopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
-  const url = "https://orderly.network/skill.md";
 
   const handleCopy = (e: React.MouseEvent) => {
     e.stopPropagation();
     const textarea = document.createElement('textarea');
-    textarea.value = url;
+    textarea.value = text;
     textarea.style.position = 'fixed';
     textarea.style.opacity = '0';
     document.body.appendChild(textarea);
@@ -1040,53 +1039,56 @@ function MobileAIAgentCard() {
   };
 
   return (
+    <button
+      onClick={handleCopy}
+      className="shrink-0 cursor-pointer text-white/50"
+    >
+      {copied ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      ) : (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
+function MobileAIAgentCard() {
+  const url = "https://orderly.network/skill.md";
+
+  return (
     <div className="rounded-[16px] p-[24px] flex flex-col gap-[16px] w-full" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.1) 0%, rgba(0,0,0,0) 100%)", border: "1px solid rgba(168,85,247,0.2)" }}>
       {/* Header */}
       <div className="flex items-center gap-[10px]">
-        <div className="size-[36px] rounded-full bg-[#7c3aed] flex items-center justify-center text-[18px]">
-          &#129302;
-        </div>
+        <img src="/images/ai-agent.png" alt="AI Agent" className="size-[36px]" />
         <div>
           <p className="font-['Atyp_BL:Bold',sans-serif] text-[18px] text-white leading-[1.3]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>AI Agent</p>
-          <p className="font-['Atyp_BL:Medium',sans-serif] text-[12px] text-[#a78bfa] leading-[1.3]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>Autonomous setup</p>
+          <p className="font-['Atyp_BL:Medium',sans-serif] text-[12px] text-[#9C75FF] leading-[1.3]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>Autonomous setup</p>
         </div>
       </div>
 
       {/* Description */}
-      <p className="font-['Atyp_BL:Medium',sans-serif] text-[14px] text-white/70 leading-[1.5]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
+      <p className="font-['Atyp_BL:Medium',sans-serif] text-[14px] text-white leading-[1.5]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
         Read the onboarding skill to understand Orderly&apos;s capabilities:
       </p>
 
       {/* URL box */}
-      <div className="relative group rounded-[10px] px-[14px] py-[12px]" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
-        <a href={url} target="_blank" rel="noopener noreferrer" className="font-['DM_Mono:Medium',sans-serif] text-[14px] text-[#a78bfa] no-underline">
+      <div className="flex items-center rounded-[10px] px-[14px] py-[12px]" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+        <a href={url} target="_blank" rel="noopener noreferrer" className="flex-1 font-['DM_Mono:Medium',sans-serif] text-[14px] text-white/70 no-underline">
           orderly.network/skill.md
         </a>
-        <button
-          onClick={handleCopy}
-          className="absolute right-[8px] top-[8px] p-[6px] rounded-[6px] cursor-pointer"
-          style={{ background: "rgba(255,255,255,0.1)" }}
-        >
-          {copied ? (
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-            </svg>
-          )}
-        </button>
+        <MobileCopyButton text={url} />
       </div>
 
       {/* Why callout */}
-      <div className="rounded-[10px] px-[14px] py-[12px]" style={{ background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.3)" }}>
-        <p className="font-['Atyp_BL:Medium',sans-serif] text-[13px] text-[#c4b5fd] leading-[1.6]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
-          <strong className="text-white">Why?</strong>{" "}
-          This skill contains comprehensive documentation about Orderly&apos;s API, SDK, trading workflows, and best practices for agents.
-        </p>
-      </div>
+      <p className="font-['Atyp_BL:Medium',sans-serif] text-[12px] text-[rgba(255,255,255,0.3)] leading-[1.6]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
+        <strong className="text-[rgba(255,255,255,0.3)]">Why?</strong>{" "}
+        This skill contains comprehensive documentation about Orderly&apos;s API, SDK, trading workflows, and best practices for agents.
+      </p>
     </div>
   );
 }
@@ -1353,17 +1355,15 @@ function QuickStartSection() {
       <div className="rounded-[16px] p-[24px] flex flex-col gap-[20px] w-full" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
         {/* Card header */}
         <div className="flex items-center gap-[10px]">
-          <div className="size-[36px] rounded-full bg-[#374151] flex items-center justify-center text-[18px]">
-            &#128100;
-          </div>
+          <img src="/images/developer.png" alt="Developer" className="size-[36px]" />
           <div>
             <p className="font-['Atyp_BL:Bold',sans-serif] text-[18px] text-white leading-[1.3]" style={featureSettings}>Developer</p>
-            <p className="font-['Atyp_BL:Medium',sans-serif] text-[12px] text-white/40 leading-[1.3]" style={featureSettings}>Manual installation</p>
+            <p className="font-['Atyp_BL:Medium',sans-serif] text-[12px] text-[#9C75FF] leading-[1.3]" style={featureSettings}>Manual installation</p>
           </div>
         </div>
 
         {/* Description */}
-        <p className="font-['Atyp_BL:Medium',sans-serif] text-[14px] text-white/70 leading-[1.5]" style={featureSettings}>
+        <p className="font-['Atyp_BL:Medium',sans-serif] text-[14px] text-white leading-[1.5]" style={featureSettings}>
           Install Orderly&apos;s agentic tools for your AI client:
         </p>
 
@@ -1396,8 +1396,8 @@ function QuickStartSection() {
               Install the MCP server for your AI client:
             </p>
             {/* Single command */}
-            <div className="relative group rounded-[10px] px-[14px] py-[12px]" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
-              <p className="font-['DM_Mono:Regular',sans-serif] text-[12px] leading-[1.6]">
+            <div className="flex items-center rounded-[10px] px-[14px] py-[12px]" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+              <p className="flex-1 font-['DM_Mono:Regular',sans-serif] text-[12px] leading-[1.6] opacity-70">
                 <span className="text-[#6b7280]">$ </span>
                 <span className="text-[#4ade80]">npx</span>{" "}
                 <span className="text-[#60a5fa]">@orderly.network/mcp-server</span>{" "}
@@ -1405,12 +1405,13 @@ function QuickStartSection() {
                 <span className="text-white/40">--client</span>{" "}
                 <span className="text-[#a78bfa]">&lt;name&gt;</span>
               </p>
+              <MobileCopyButton text="npx @orderly.network/mcp-server init --client <name>" />
             </div>
             {/* Client badges */}
             <div className="flex flex-wrap items-center gap-[6px]">
-              <span className="font-['DM_Mono:Regular',sans-serif] text-[11px] text-[#6b7280]">Supported clients:</span>
+              <span className="font-['DM_Mono:Regular',sans-serif] text-[11px] text-white">Supported clients:</span>
               {(["claude", "cursor", "vscode", "codex", "opencode"] as const).map((c) => (
-                <span key={c} className="font-['DM_Mono:Regular',sans-serif] text-[11px] text-white/70 px-[8px] py-[3px] rounded-[4px]" style={{ background: "rgba(255,255,255,0.05)" }}>
+                <span key={c} className="font-['DM_Mono:Regular',sans-serif] text-[11px] text-white px-[8px] py-[3px] rounded-[4px]" style={{ background: "rgba(255,255,255,0.05)" }}>
                   {c}
                 </span>
               ))}

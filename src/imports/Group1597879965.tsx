@@ -53,10 +53,10 @@ function MCPServerContent() {
         Install the MCP server for your AI client:
       </p>
 
-      {/* Single command block */}
-      <div className="relative group">
-        <div className="rounded-[12px] px-[20px] py-[16px]" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
-          <p className={`${monoClass} text-[16px]`}>
+      {/* Single command block with integrated Copy button */}
+      <div className="flex items-stretch rounded-[12px] overflow-hidden" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+        <div className="flex-1 px-[20px] py-[16px]">
+          <p className={`${monoClass} text-[16px] opacity-70`}>
             <span className="text-[#6b7280]">$ </span>
             <span className="text-[#4ade80]">npx</span>{" "}
             <span className="text-[#60a5fa]">@orderly.network/mcp-server</span>{" "}
@@ -68,22 +68,17 @@ function MCPServerContent() {
         <button
           onClick={() => copy("npx @orderly.network/mcp-server init --client <name>")}
           title={copied ? "Copied!" : "Copy to clipboard"}
-          className="absolute right-[12px] top-[12px] p-[8px] rounded-[6px] transition-all opacity-0 group-hover:opacity-100"
-          style={{ background: "rgba(255,255,255,0.1)" }}
+          className="px-[20px] py-[16px] bg-black text-white font-['Atyp_BL:Bold',sans-serif] text-[14px] cursor-pointer transition-all hover:bg-[#1a1a1a]"
         >
-          {copied ? (
-            <span className="text-green-400 text-[12px]">&#10003;</span>
-          ) : (
-            <CopyIcon />
-          )}
+          {copied ? "Copied!" : "Copy"}
         </button>
       </div>
 
       {/* Client badges */}
       <div className="flex flex-wrap items-center gap-[8px]">
-        <span className={`${monoClass} text-[13px] text-[#6b7280]`}>Supported clients:</span>
+        <span className={`${monoClass} text-[13px] text-white`}>Supported clients:</span>
         {CLIENTS.map((c) => (
-          <span key={c} className={`${monoClass} text-[13px] text-white/70 px-[10px] py-[4px] rounded-[6px]`} style={{ background: "rgba(255,255,255,0.05)" }}>
+          <span key={c} className={`${monoClass} text-[13px] text-white px-[10px] py-[4px] rounded-[6px]`} style={{ background: "rgba(255,255,255,0.05)" }}>
             {c}
           </span>
         ))}
@@ -176,20 +171,18 @@ export default function DeveloperCard() {
   const [devTab, setDevTab] = useState<DevTab>("mcp-server");
 
   return (
-    <div className="rounded-[16px] p-[32px] flex flex-col gap-[24px] flex-1 min-w-0" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+    <div className="rounded-[16px] p-[32px] flex flex-col gap-[24px] flex-1 basis-0 min-w-0" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
       {/* Card header */}
       <div className="flex items-center gap-[12px]">
-        <div className="size-[48px] rounded-full bg-[#374151] flex items-center justify-center text-[24px]">
-          &#128100;
-        </div>
+        <img src="/images/developer.png" alt="Developer" className="size-[48px]" />
         <div>
           <p className={`${atypBold} text-[24px] text-white leading-[1.3]`} style={featureSettings}>Developer</p>
-          <p className={`${atypMedium} text-[14px] text-white/40 leading-[1.3]`} style={featureSettings}>Manual installation</p>
+          <p className={`${atypMedium} text-[14px] text-[#9C75FF] leading-[1.3]`} style={featureSettings}>Manual installation</p>
         </div>
       </div>
 
       {/* Description */}
-      <p className={`${atypMedium} text-[18px] text-white/70 leading-[1.5]`} style={featureSettings}>
+      <p className={`${atypMedium} text-[18px] text-white leading-[1.5]`} style={featureSettings}>
         Install Orderly&apos;s agentic tools for your AI client:
       </p>
 

@@ -73,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="help" href="https://orderly.network/skill.md" type="text/markdown" title="Orderly Network Agent Skill" />
         <link rel="preload" href="/images/macbook-poster.webp" as="image" type="image/webp" media="(min-width: 768px)" />
         <link rel="preload" href="/images/macbook-static-mobile.webp" as="image" type="image/webp" media="(max-width: 767px)" />
         <script

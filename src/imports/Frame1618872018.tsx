@@ -1998,52 +1998,42 @@ function AIAgentCard() {
   };
 
   return (
-    <div className="rounded-[16px] p-[32px] flex flex-col gap-[24px] w-[480px] shrink-0" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.1) 0%, rgba(0,0,0,0) 100%)", border: "1px solid rgba(168,85,247,0.2)" }}>
+    <div className="rounded-[16px] p-[32px] flex flex-col gap-[24px] flex-1 basis-0 min-w-0" style={{ background: "linear-gradient(135deg, rgba(124,58,237,0.1) 0%, rgba(0,0,0,0) 100%)", border: "1px solid rgba(168,85,247,0.2)" }}>
       {/* Card header */}
       <div className="flex items-center gap-[12px]">
-        <div className="size-[48px] rounded-full bg-[#7c3aed] flex items-center justify-center text-[24px]">
-          &#129302;
-        </div>
+        <img src="/images/ai-agent.png" alt="AI Agent" className="size-[48px]" />
         <div>
           <p className="font-['Atyp_BL:Bold',sans-serif] text-[24px] text-white leading-[1.3]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>AI Agent</p>
-          <p className="font-['Atyp_BL:Medium',sans-serif] text-[14px] text-[#a78bfa] leading-[1.3]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>Autonomous setup</p>
+          <p className="font-['Atyp_BL:Medium',sans-serif] text-[14px] text-[#9C75FF] leading-[1.3]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>Autonomous setup</p>
         </div>
       </div>
 
       {/* Description */}
-      <p className="font-['Atyp_BL:Medium',sans-serif] text-[18px] text-white/70 leading-[1.5]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
+      <p className="font-['Atyp_BL:Medium',sans-serif] text-[18px] text-white leading-[1.5]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
         Read the onboarding skill to understand Orderly&apos;s capabilities:
       </p>
 
-      {/* URL box */}
-      <div className="relative group">
-        <div className="rounded-[12px] px-[16px] py-[14px]" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
-          <a href={url} target="_blank" rel="noopener noreferrer" className="font-['DM_Mono:Medium',sans-serif] text-[16px] text-[#a78bfa] no-underline hover:text-[#c4b5fd] transition-colors">
+      {/* URL box with integrated Copy button */}
+      <div className="flex items-stretch rounded-[12px] overflow-hidden" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+        <div className="flex-1 px-[16px] py-[14px]">
+          <a href={url} target="_blank" rel="noopener noreferrer" className="font-['DM_Mono:Medium',sans-serif] text-[16px] text-white/70 no-underline hover:text-white transition-colors">
             orderly.network/skill.md
           </a>
         </div>
         <button
           onClick={handleCopy}
           title={copied ? "Copied!" : "Copy to clipboard"}
-          className="absolute right-[12px] top-[10px] p-[8px] rounded-[6px] transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
-          style={{ background: "rgba(255,255,255,0.1)" }}
+          className="px-[20px] py-[14px] bg-black text-white font-['Atyp_BL:Bold',sans-serif] text-[14px] cursor-pointer transition-all hover:bg-[#1a1a1a]"
         >
-          {copied ? <CheckSvg /> : (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-            </svg>
-          )}
+          {copied ? "Copied!" : "Copy"}
         </button>
       </div>
 
       {/* Why callout */}
-      <div className="rounded-[12px] px-[16px] py-[14px]" style={{ background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.3)" }}>
-        <p className="font-['Atyp_BL:Medium',sans-serif] text-[15px] text-[#c4b5fd] leading-[1.6]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
-          <strong className="text-white">Why?</strong>{" "}
-          This skill contains comprehensive documentation about Orderly&apos;s API, SDK, trading workflows, and best practices for agents.
-        </p>
-      </div>
+      <p className="font-['Atyp_BL:Medium',sans-serif] text-[14px] text-[rgba(255,255,255,0.3)] leading-[1.6]" style={{ fontFeatureSettings: "'ss03', 'ss02', 'ss05', 'ss06'" }}>
+        <strong className="text-[rgba(255,255,255,0.3)]">Why?</strong>{" "}
+        This skill contains comprehensive documentation about Orderly&apos;s API, SDK, trading workflows, and best practices for agents.
+      </p>
     </div>
   );
 }
@@ -2119,7 +2109,7 @@ function QuickStartIconContainer() {
 
 function QuickStartContent() {
   return (
-    <div className="relative flex-1 min-w-0" data-name="Quick Start Content">
+    <div className="relative flex-1 basis-0 min-w-0" data-name="Quick Start Content">
       <QuickStartGroup />
     </div>
   );
@@ -2131,7 +2121,7 @@ function QuickStartSection() {
       <QuickStartHeader />
       <div className="flex gap-[22px] items-stretch w-full">
         <AIAgentCard />
-        <QuickStartContent />
+        <QuickStartGroup />
       </div>
     </div>
   );
