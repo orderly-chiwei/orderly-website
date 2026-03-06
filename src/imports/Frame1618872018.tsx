@@ -21,7 +21,6 @@ const imgYtIconWhiteDigital1 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA
 import { imgGroup } from "./svg-z9q1x";
 import QuickStartGroup from "./Group1597879965";
 import IcSocialYoutubeS from "./IcSocialYoutubeS24";
-import LogoContainerLogX from "./LogoContainer";
 
 // ─── SVG asset imports ────────────────────────────────────────────────────────
 const ethBadgeSrc = "/images/svg/EthBadge.svg";
@@ -612,23 +611,15 @@ function LogoContainer() {
   );
 }
 
-function ProductInfo() {
-  return (
-    <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Product Info">
-      <p className="font-['Atyp_BL:Semibold',sans-serif] leading-none not-italic relative shrink-0 text-[24px] text-white" style={{ fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06', 'lnum', 'pnum'" }}>LogX</p>
-    </div>
-  );
-}
-
 function DexCard() {
   return (
-    <a href="https://logx.network/" target="_blank" rel="noopener noreferrer" className="bg-[rgba(20,21,26,0.7)] flex-[1_0_0] min-h-px min-w-[280px] relative rounded-[5px]" data-name="DEX Card">
+    <a href="https://perps.kodiak.finance/" target="_blank" rel="noopener noreferrer" className="bg-[rgba(20,21,26,0.7)] flex-[1_0_0] min-h-px min-w-[280px] relative rounded-[5px]" data-name="DEX Card">
       <div className="flex flex-row items-center justify-center min-w-[inherit] size-full">
         <div className="content-stretch flex gap-[16px] items-center justify-center min-w-[inherit] p-[20px] relative w-full">
-          <div className="relative shrink-0 size-[64px]">
-            <LogoContainerLogX />
+          <img src="/images/logos/kodiak.jpg" width={64} height={64} alt="Kodiak" className="shrink-0 rounded-full" />
+          <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Product Info">
+            <p className="font-['Atyp_BL:Semibold',sans-serif] leading-none not-italic relative shrink-0 text-[24px] text-white" style={{ fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06', 'lnum', 'pnum'" }}>Kodiak</p>
           </div>
-          <ProductInfo />
         </div>
       </div>
     </a>
@@ -974,11 +965,15 @@ function ProductInfo6() {
 
 function DexCard6() {
   return (
-    <a href="https://kyrr.io/" target="_blank" rel="noopener noreferrer" className="bg-[rgba(20,21,26,0.7)] flex-[1_0_0] min-h-px min-w-[280px] relative rounded-[5px]" data-name="DEX Card">
+    <a href="https://app.perptools.ai/" target="_blank" rel="noopener noreferrer" className="bg-[rgba(20,21,26,0.7)] flex-[1_0_0] min-h-px min-w-[280px] relative rounded-[5px]" data-name="DEX Card">
       <div className="flex flex-row items-center justify-center min-w-[inherit] size-full">
         <div className="content-stretch flex gap-[16px] items-center justify-center min-w-[inherit] p-[20px] relative w-full">
-          <LogoContainer5 />
-          <ProductInfo6 />
+          <img src="/images/logos/perpstool.jpg" width={64} height={64} alt="Perptools" className="shrink-0 rounded-full" />
+          <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Product Info">
+            <p className="font-['Atyp_BL:Semibold',sans-serif] leading-none not-italic relative shrink-0 text-[24px] text-white" style={{ fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06', 'lnum', 'pnum'" }}>
+              Perptools
+            </p>
+          </div>
         </div>
       </div>
     </a>
@@ -1017,11 +1012,15 @@ function ProductInfo7() {
 
 function DexCard7() {
   return (
-    <a href="https://perpsdao.com/" target="_blank" rel="noopener noreferrer" className="bg-[rgba(20,21,26,0.7)] flex-[1_0_0] min-h-px min-w-[280px] relative rounded-[5px]" data-name="DEX Card">
+    <a href="https://www.zdex.world/" target="_blank" rel="noopener noreferrer" className="bg-[rgba(20,21,26,0.7)] flex-[1_0_0] min-h-px min-w-[280px] relative rounded-[5px]" data-name="DEX Card">
       <div className="flex flex-row items-center justify-center min-w-[inherit] size-full">
         <div className="content-stretch flex gap-[16px] items-center justify-center min-w-[inherit] p-[20px] relative w-full">
-          <LogoContainer6 />
-          <ProductInfo7 />
+          <img src="/images/logos/Zetarium.jpg" width={64} height={64} alt="Zetarium" className="shrink-0 rounded-full" />
+          <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Product Info">
+            <p className="font-['Atyp_BL:Semibold',sans-serif] leading-none not-italic relative shrink-0 text-[24px] text-white" style={{ fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06', 'lnum', 'pnum'" }}>
+              Zetarium
+            </p>
+          </div>
         </div>
       </div>
     </a>

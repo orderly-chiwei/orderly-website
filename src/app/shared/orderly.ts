@@ -17,8 +17,9 @@ export const DEX_URLS: Record<string, string> = {
   Quickswap:       "https://quickswap.exchange/",
   "What.Exchange": "https://www.what.exchange/",
   VOOI:            "https://vooi.io/",
-  Kyrrio:          "https://kyrr.io/",
-  PerpsDAO:        "https://perpsdao.com/",
+  Kodiak:          "https://perps.kodiak.finance/",
+  Perptools:       "https://app.perptools.ai/",
+  Zetarium:        "https://www.zdex.world/",
 };
 
 // ── Social links (ordered to match the icon row in both frames) ──────────────

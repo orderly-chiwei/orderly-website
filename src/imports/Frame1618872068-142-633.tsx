@@ -1485,15 +1485,12 @@ function DexCard() {
     <div className="bg-[rgba(20,21,26,0.7)] col-2 justify-self-stretch relative rounded-[5px] row-2 self-start shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-name="DEX Card">
       <div className="flex flex-row items-center justify-center size-full">
         <div className="content-stretch flex gap-[10px] items-center justify-center p-[10px] relative w-full">
-          <a
-            href="https://logx.network/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contents"
-          >
-            <LogoContainer />
-            <ProductInfo />
-          </a>
+          <img src="/images/logos/kodiak.jpg" width={30} height={30} alt="Kodiak" className="shrink-0 rounded-full" />
+          <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Product Info">
+            <p className="font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] leading-none relative shrink-0 text-[12px] text-white whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06', 'lnum', 'pnum'" }}>
+              Kodiak
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -1842,8 +1839,12 @@ function DexCard6() {
     <div className="bg-[rgba(20,21,26,0.7)] col-1 justify-self-stretch relative rounded-[5px] row-4 self-start shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-name="DEX Card">
       <div className="flex flex-row items-center justify-center size-full">
         <div className="content-stretch flex gap-[10px] items-center justify-center p-[10px] relative w-full">
-          <LogoContainer5 />
-          <ProductInfo6 />
+          <img src="/images/logos/perpstool.jpg" width={30} height={30} alt="Perptools" className="shrink-0 rounded-full" />
+          <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Product Info">
+            <p className="font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] leading-none relative shrink-0 text-[12px] text-white whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06', 'lnum', 'pnum'" }}>
+              Perptools
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -1885,8 +1886,12 @@ function DexCard7() {
     <div className="bg-[rgba(20,21,26,0.7)] col-2 justify-self-stretch relative rounded-[5px] row-4 self-start shrink-0 cursor-pointer hover:opacity-80 transition-opacity" data-name="DEX Card">
       <div className="flex flex-row items-center justify-center size-full">
         <div className="content-stretch flex gap-[10px] items-center justify-center p-[10px] relative w-full">
-          <LogoContainer6 />
-          <ProductInfo7 />
+          <img src="/images/logos/Zetarium.jpg" width={30} height={30} alt="Zetarium" className="shrink-0 rounded-full" />
+          <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="Product Info">
+            <p className="font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] leading-none relative shrink-0 text-[12px] text-white whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06', 'lnum', 'pnum'" }}>
+              Zetarium
+            </p>
+          </div>
         </div>
       </div>
     </div>
