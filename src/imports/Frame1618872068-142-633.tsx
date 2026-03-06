@@ -1,8 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef, memo } from "react";
+import { useState, useEffect, useRef, memo, useCallback } from "react";
 import MacbookVideo from "@/app/components/MacbookVideo";
 import CheckIcon from "@mui/icons-material/Check";
+import { AnimatedNumber } from "@/app/components/AnimatedNumber";
+import { useOrderlyStats, formatLargeNumber } from "@/app/hooks/useOrderlyStats";
 import svgPaths from "./svg-4hybjba00c";
 const imgMacBook11 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQABNjN9GQAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAA0lEQVQI12P4z8BQDwAEgAF/pooBPQAAAABJRU5ErkJggg==";
 const imgWhyIconContainer3 = "/images/deep-shared-liquidity.png";
@@ -183,112 +185,112 @@ function Frame30() {
   );
 }
 
-function Tvl() {
+function Tvl({ formatTvl, value }: { formatTvl: (v: number) => string; value: number }) {
   return (
     <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 text-center text-white w-[151px]" data-name="TVL">
       <p className="font-['Atyp_BL:Display_-_Medium',sans-serif] font-[507] leading-[1.3] min-w-full relative shrink-0 text-[14px] tracking-[-0.1166px] w-[min-content]" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
         TVL
       </p>
       <div className="capitalize flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] justify-center leading-[0] relative shrink-0 text-[24px] whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        <p className="leading-none">$21.39M</p>
+        <p className="leading-none"><AnimatedNumber value={value} format={formatTvl} /></p>
       </div>
     </div>
   );
 }
 
-function OpenInterest() {
+function OpenInterest({ formatTvl, value }: { formatTvl: (v: number) => string; value: number }) {
   return (
     <div className="content-stretch flex flex-col h-[47.104px] items-center justify-center relative shrink-0 w-full" data-name="Open interest">
-      <Tvl />
+      <Tvl formatTvl={formatTvl} value={value} />
     </div>
   );
 }
 
-function TotalBuilders() {
+function TotalBuilders({ formatInteger, value }: { formatInteger: (v: number) => string; value: number }) {
   return (
     <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 text-center text-white w-[151px]" data-name="Total builders">
       <p className="font-['Atyp_BL:Display_-_Medium',sans-serif] font-[507] leading-[1.3] relative shrink-0 text-[14px] tracking-[-0.1166px] w-full" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
         Live builders
       </p>
       <div className="capitalize flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] justify-center leading-[0] relative shrink-0 text-[24px] w-full" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        <p className="leading-none">261+</p>
+        <p className="leading-none"><AnimatedNumber value={value} format={formatInteger} /></p>
       </div>
     </div>
   );
 }
 
-function TotalTradingVolume() {
+function TotalTradingVolume({ formatInteger, value }: { formatInteger: (v: number) => string; value: number }) {
   return (
     <div className="content-stretch flex flex-col h-[44.591px] items-center justify-center relative shrink-0 w-full" data-name="Total trading volume">
-      <TotalBuilders />
+      <TotalBuilders formatInteger={formatInteger} value={value} />
     </div>
   );
 }
 
-function Frame37() {
+function Frame37({ formatTvl, tvlValue, formatInteger, buildersValue }: { formatTvl: (v: number) => string; tvlValue: number; formatInteger: (v: number) => string; buildersValue: number }) {
   return (
     <div className="content-stretch flex flex-col gap-[20px] items-start justify-center relative shrink-0 w-[130px]">
-      <OpenInterest />
-      <TotalTradingVolume />
+      <OpenInterest formatTvl={formatTvl} value={tvlValue} />
+      <TotalTradingVolume formatInteger={formatInteger} value={buildersValue} />
     </div>
   );
 }
 
-function Tvl1() {
+function Tvl1({ formatVolume, value }: { formatVolume: (v: number) => string; value: number }) {
   return (
     <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 text-center text-white" data-name="TVL">
       <p className="font-['Atyp_BL:Display_-_Medium',sans-serif] font-[507] leading-[1.3] relative shrink-0 text-[14px] tracking-[-0.1166px] w-[143.517px]" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
         24h trading volume
       </p>
       <div className="capitalize flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] justify-center leading-[0] relative shrink-0 text-[24px] whitespace-nowrap" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        <p className="leading-none">$42.50M</p>
+        <p className="leading-none"><AnimatedNumber value={value} format={formatVolume} /></p>
       </div>
     </div>
   );
 }
 
-function OpenInterest1() {
+function OpenInterest1({ formatVolume, value }: { formatVolume: (v: number) => string; value: number }) {
   return (
     <div className="content-stretch flex flex-col h-[47.104px] items-center justify-center relative shrink-0 w-full" data-name="Open interest">
-      <Tvl1 />
+      <Tvl1 formatVolume={formatVolume} value={value} />
     </div>
   );
 }
 
-function TotalBuilders1() {
+function TotalBuilders1({ formatInteger, value }: { formatInteger: (v: number) => string; value: number }) {
   return (
     <div className="content-stretch flex flex-col gap-[10px] items-center justify-center relative shrink-0 text-center text-white w-[151px]" data-name="Total builders">
       <p className="font-['Atyp_BL:Display_-_Medium',sans-serif] font-[507] leading-[1.3] relative shrink-0 text-[14px] tracking-[-0.1166px] w-full" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
         Chains
       </p>
       <div className="capitalize flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] justify-center leading-[0] relative shrink-0 text-[24px] w-full" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72", fontFeatureSettings: "'ss02', 'ss03', 'ss05', 'ss06'" }}>
-        <p className="leading-none">17+</p>
+        <p className="leading-none"><AnimatedNumber value={value} format={formatInteger} /></p>
       </div>
     </div>
   );
 }
 
-function TotalTradingVolume1() {
+function TotalTradingVolume1({ formatInteger, value }: { formatInteger: (v: number) => string; value: number }) {
   return (
     <div className="content-stretch flex flex-col h-[44.591px] items-center justify-center relative shrink-0 w-full" data-name="Total trading volume">
-      <TotalBuilders1 />
+      <TotalBuilders1 formatInteger={formatInteger} value={value} />
     </div>
   );
 }
 
-function Frame42() {
+function Frame42({ formatVolume, volumeValue, formatInteger, chainsValue }: { formatVolume: (v: number) => string; volumeValue: number; formatInteger: (v: number) => string; chainsValue: number }) {
   return (
     <div className="content-stretch flex flex-col gap-[20px] items-start justify-center relative shrink-0 w-[140px]">
-      <OpenInterest1 />
-      <TotalTradingVolume1 />
+      <OpenInterest1 formatVolume={formatVolume} value={volumeValue} />
+      <TotalTradingVolume1 formatInteger={formatInteger} value={chainsValue} />
     </div>
   );
 }
 
-function Frame47() {
+function Frame47({ stats, formatTvl, formatVolume, formatInteger }: { stats: any; formatTvl: (v: number) => string; formatVolume: (v: number) => string; formatInteger: (v: number) => string }) {
   return (
     <div className="content-stretch flex gap-[16px] items-start justify-center relative shrink-0">
-      <Frame37 />
+      <Frame37 formatTvl={formatTvl} tvlValue={stats.tvl} formatInteger={formatInteger} buildersValue={stats.liveBuilders} />
       <div className="flex h-[111.694px] items-center justify-center relative shrink-0 w-0" style={{ "--transform-inner-width": "1200", "--transform-inner-height": "19" } as React.CSSProperties}>
         <div className="flex-none rotate-90">
           <div className="h-0 relative w-[111.694px]">
@@ -300,15 +302,21 @@ function Frame47() {
           </div>
         </div>
       </div>
-      <Frame42 />
+      <Frame42 formatVolume={formatVolume} volumeValue={stats.tradingVolume} formatInteger={formatInteger} chainsValue={stats.chains} />
     </div>
   );
 }
 
+const formatInteger = (v: number) => `${Math.round(v)}+`;
+
 function StatsSection() {
+  const stats = useOrderlyStats();
+  const formatTvl = useCallback((v: number) => formatLargeNumber(v), []);
+  const formatVolume = useCallback((v: number) => formatLargeNumber(v), []);
+
   return (
     <div className="bg-[#6700ce] content-stretch flex flex-col items-center py-[20px] relative rounded-[11.195px] shrink-0 w-[335px]" data-name="Stats Section">
-      <Frame47 />
+      <Frame47 stats={stats} formatTvl={formatTvl} formatVolume={formatVolume} formatInteger={formatInteger} />
     </div>
   );
 }
@@ -2138,17 +2146,37 @@ function FooterStatus1() {
   );
 }
 
-function LiveOrderPrice() {
-  return (
-    <p className="leading-[0.753] text-[20px]" data-name="order-price">$0.051</p>
-  );
-}
-
 function FooterStatus() {
+  const [price, setPrice] = useState<string>("...");
+
+  useEffect(() => {
+    const fetchPrice = async () => {
+      try {
+        const res = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=orderly-network&vs_currencies=usd"
+        );
+        const data = await res.json();
+        const usd = data?.["orderly-network"]?.usd;
+        if (usd !== undefined) {
+          setPrice(
+            "$" +
+            usd.toLocaleString("en-US", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 3,
+            })
+          );
+        }
+      } catch {
+        setPrice("$—");
+      }
+    };
+    fetchPrice();
+  }, []);
+
   return (
     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid place-items-start relative shrink-0" data-name="Footer Status">
       <div className="col-1 flex flex-col font-['Atyp_BL:Display_-_SemiBold',sans-serif] font-[612] h-[38px] justify-center ml-0 mt-0 relative row-1 text-[16px] text-white tracking-[0.16px] w-[82px]" style={{ fontVariationSettings: "'ital' 0, 'opsz' 72" }}>
-        <LiveOrderPrice />
+        <p className="leading-[0.753] text-[20px]" data-name="order-price">{price}</p>
       </div>
       <FooterStatus1 />
     </div>
