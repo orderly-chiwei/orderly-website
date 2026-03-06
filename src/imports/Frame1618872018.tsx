@@ -488,7 +488,7 @@ function HeroButtonsContainer({ onOpenModal }: { onOpenModal: () => void }) {
         </p>
       </a>
       <a
-        href={`mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nCompany / Project:\nMessage:\n")}`}
+        href={`mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nTelegram ID:\nCompany / Project:\nMessage:\n")}`}
         className="content-stretch flex h-[52px] items-center justify-center pl-[24px] pr-[20px] py-[12px] relative rounded-[24px] shrink-0 hover:bg-white/10 transition-colors bg-transparent border-0 cursor-pointer no-underline"
         data-name="Trade on Orderly"
       >
@@ -1135,7 +1135,7 @@ function Frame4() {
 function Frame5({ onOpenModal }: { onOpenModal: () => void }) {
   return (
     <a
-      href={`mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nCompany / Project:\nMessage:\n")}`}
+      href={`mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nTelegram ID:\nCompany / Project:\nMessage:\n")}`}
       className="content-stretch flex h-[52px] items-center justify-center pl-[24px] pr-[20px] py-[12px] relative rounded-[24px] shrink-0 hover:bg-white/10 transition-colors bg-transparent border-0 cursor-pointer no-underline"
       data-name="Trade on Orderly"
     >

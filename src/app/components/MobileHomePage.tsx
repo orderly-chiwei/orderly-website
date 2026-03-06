@@ -549,7 +549,7 @@ export function MobileHomePage({ onMenuClick }: { onMenuClick?: () => void } = {
       };
       const onPartner = (e: Event) => {
         e.stopPropagation();
-        window.location.href = `mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nCompany / Project:\nMessage:\n")}`;
+        window.location.href = `mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nTelegram ID:\nCompany / Project:\nMessage:\n")}`;
       };
 
       buildEls.forEach(el => el.addEventListener("click", onBuild));
@@ -646,7 +646,7 @@ export function MobileHomePage({ onMenuClick }: { onMenuClick?: () => void } = {
       // Talk to Partnerships
       if (name === "Trade on Orderly") {
         e.preventDefault();
-        window.location.href = `mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nCompany / Project:\nMessage:\n")}`;
+        window.location.href = `mailto:midoji@orderly.network?subject=${encodeURIComponent("Partnership Inquiry from Orderly Website")}&body=${encodeURIComponent("First Name:\nLast Name:\nEmail:\nTelegram ID:\nCompany / Project:\nMessage:\n")}`;
         return;
       }
 
