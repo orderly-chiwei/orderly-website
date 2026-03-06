@@ -1215,16 +1215,42 @@ function Component1({ onClick }: { onClick?: () => void }) {
 
 function FooterStatus1({ onBuyOrder }: { onBuyOrder?: () => void }) {
   return (
-    <div className="col-1 grid-cols-[max-content] grid-rows-[max-content] inline-grid ml-[98px] mt-0 place-items-start relative row-1" data-name="Footer Status">
+    <div className="relative shrink-0" data-name="Footer Status">
       <Component1 onClick={onBuyOrder} />
     </div>
   );
 }
 
+const ORDER_PRICE_CACHE_KEY = "order_price";
+const ORDER_PRICE_MAX_AGE = 60_000; // 1 minute
+
+function getCachedPrice(): string | null {
+  try {
+    const raw = localStorage.getItem(ORDER_PRICE_CACHE_KEY);
+    if (!raw) return null;
+    const { value, ts } = JSON.parse(raw);
+    if (Date.now() - ts < ORDER_PRICE_MAX_AGE) return value;
+  } catch {}
+  return null;
+}
+
+function setCachedPrice(value: string) {
+  localStorage.setItem(ORDER_PRICE_CACHE_KEY, JSON.stringify({ value, ts: Date.now() }));
+}
+
+function formatUsd(usd: number): string {
+  return "$" + usd.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 3 });
+}
+
 function FooterStatus({ onBuyOrder }: { onBuyOrder?: () => void }) {
-  const [price, setPrice] = useState<string>("...");
+  const [price, setPrice] = useState<string | null>(() => getCachedPrice());
 
   useEffect(() => {
+    const cached = getCachedPrice();
+    if (cached) {
+      setPrice(cached);
+      return;
+    }
     const fetchPrice = async () => {
       try {
         const res = await fetch(
@@ -1233,26 +1259,24 @@ function FooterStatus({ onBuyOrder }: { onBuyOrder?: () => void }) {
         const data = await res.json();
         const usd = data?.["orderly-network"]?.usd;
         if (usd !== undefined) {
-          setPrice(
-            "$" +
-            usd.toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 3,
-            })
-          );
+          const formatted = formatUsd(usd);
+          setPrice(formatted);
+          setCachedPrice(formatted);
         }
       } catch {
-        setPrice("$—");
+        setPrice(getCachedPrice());
       }
     };
     fetchPrice();
   }, []);
 
   return (
-    <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid place-items-start relative shrink-0" data-name="Footer Status">
-      <div className="col-1 flex flex-col font-['Atyp_BL:Semibold',sans-serif] h-[38px] justify-center ml-0 mt-0 not-italic relative row-1 text-[24px] text-white tracking-[0.24px] w-[82px]">
-        <p className="leading-[0.753] whitespace-pre-wrap">{price}</p>
-      </div>
+    <div className="flex items-center gap-[16px] relative shrink-0" data-name="Footer Status">
+      {price && (
+        <div className="flex flex-col font-['Atyp_BL:Semibold',sans-serif] h-[38px] justify-center not-italic relative text-[24px] text-white tracking-[0.24px]">
+          <p className="leading-[0.753] whitespace-pre-wrap">{price}</p>
+        </div>
+      )}
       <FooterStatus1 onBuyOrder={onBuyOrder} />
     </div>
   );
