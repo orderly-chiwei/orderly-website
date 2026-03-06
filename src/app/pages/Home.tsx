@@ -110,7 +110,7 @@ export default function Home() {
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth;
-      if (w < 1024) setViewport("mobile");
+      if (w < 480) setViewport("mobile");
       else setViewport("desktop");
     };
     handleResize();
@@ -122,7 +122,7 @@ export default function Home() {
   if (viewport === "desktop") {
     return (
       <div style={{ width: "100%", overflowX: "hidden", background: "#000", display: "flex", justifyContent: "center" }}>
-        <div style={{ width: "100%", maxWidth: "1440px" }}>
+        <div style={{ width: "100%", maxWidth: "1200px" }}>
           <ScaledFrame cap>
             <Frame7 />
           </ScaledFrame>
